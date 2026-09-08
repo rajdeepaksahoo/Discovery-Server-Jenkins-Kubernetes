@@ -50,10 +50,22 @@ pipeline {
             steps {
                 echo 'Pushing Docker Image...'
 
-                sh '''
-                    docker push \
-                        razdeepak/discovery-server-jenkins-kubernetes:${BUILD_NUMBER}
-                '''
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'dockerhub',
+                        usernameVariable: 'DOCKER_USERNAME',
+                        passwordVariable: 'DOCKER_PASSWORD'
+                    )
+                ]) {
+                    sh '''
+                        echo "$DOCKER_PASSWORD" | docker login \
+                            -u "$DOCKER_USERNAME" \
+                            --password-stdin
+
+                        docker push \
+                            razdeepak/discovery-server-jenkins-kubernetes:${BUILD_NUMBER}
+                    '''
+                }
             }
         }
 
