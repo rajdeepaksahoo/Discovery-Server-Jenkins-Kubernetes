@@ -76,10 +76,10 @@ pipeline {
                 sh '''
                     kubectl apply -f kubernetes/deployment.yaml
 
-                    kubectl set image deployment/jenkins-practice \
-                        jenkins-practice=razdeepak/discovery-server-jenkins-kubernetes:${BUILD_NUMBER}
+                    kubectl set image deployment/eureka-server \
+                        eureka-server=razdeepak/discovery-server-jenkins-kubernetes:${BUILD_NUMBER}
 
-                    kubectl rollout status deployment/jenkins-practice
+                    kubectl rollout status deployment/eureka-server
                 '''
             }
         }
