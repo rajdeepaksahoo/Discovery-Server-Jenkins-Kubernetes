@@ -75,7 +75,6 @@ pipeline {
 
                 sh '''
                     kubectl apply -f kubernetes/deployment.yaml
-                    kubectl apply -f kubernetes/service.yaml
 
                     kubectl set image deployment/jenkins-practice \
                         jenkins-practice=razdeepak/discovery-server-jenkins-kubernetes:${BUILD_NUMBER}
